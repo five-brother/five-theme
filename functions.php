@@ -11,8 +11,31 @@ if (version_compare($GLOBALS['wp_version'], '4.7-alpha', '<')) {
 
 include(get_template_directory() . '/functions/widget.php');//创建自定义组件
 
+/* 添加主题在线升级功能 ----自定义主题下载地址 */
+/* require 'plugin-update-checker/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+	'http://wudi.com/theme.json',//将这里的网址改成你的theme.json所在地的网址
+	__FILE__, //Full path to the main plugin file or functions.php.
+	'unique-plugin-or-theme-slug'
+); */
 
+//添加主题在线升级功能----github升级方式
+require 'plugin-update-checker/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+	'https://github.com/five-brother/five-theme',
+	__FILE__,
+	'unique-plugin-or-theme-slug'
+);
+
+//Set the branch that contains the stable release.
+$myUpdateChecker->setBranch('main');
+
+//Optional: If you're using a private repository, specify the access token like this:
+$myUpdateChecker->setAuthentication('your-token-here');
 
 //去除钩子中系统自带的函数
 remove_action('wp_head', '_wp_render_title_tag', 1);
