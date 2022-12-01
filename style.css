@@ -1,0 +1,426 @@
+/*
+	Theme Name: 五弟-博客主题
+	Theme URI: http://www.555d.cn
+	Description: 五弟主题的描述
+    Author: 五弟
+	Author URI: http://www.555d.cn
+	details URI: http://www.555d.cn
+	Version: 1.0.0
+	License: 许可证
+	License URI: http://www.gnu.org/licenses/gpl-2.0.html
+	Tags: 五弟
+*/
+
+/* 初始化样式 */
+/* 把我们所有标签的内外边距清零 */
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+	margin: 0;
+	padding: 0
+}
+
+/* em 和 i 斜体的文字不倾斜 */
+em,
+i {
+	font-style: normal
+}
+
+/* 去掉每个li前面的小圆点 */
+li {
+	list-style: none
+}
+
+
+img {
+	border: 0;/* 为了照顾低版本浏览器,如果 图片的外面包含了链接 会出现边框的问题 */
+	vertical-align: middle /* 解决图片底侧出现空白缝隙的问题 */
+}
+
+
+button {
+	cursor: pointer /* 当我们鼠标经过button时,鼠标变成小手的样子 */
+}
+
+a {
+	color: #666;
+	text-decoration: none
+}
+
+a:hover {
+	color: #c81623
+}
+
+button,
+input {
+	font-family: Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif
+}
+
+body {
+	/* 抗锯齿性,避免文字被放大后会产生锯齿 */
+	-webkit-font-smoothing: antialiased;
+	background-color: #fff;
+	/* 12px/1.5 表示所有字体的大小为12px,1.5倍的行高 */
+	/* "\5B8B\4F53" 代表的是宋体，用这种方式，浏览器的兼容性会比较好。 把中文字体的名称用相应的Unicode编码来代替，这样就可以有效地避免浏览器解释CSS代码时出现乱码的情况*/
+	font: 16px/1.5 Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
+	color: #333
+}
+
+.hide,
+.none {
+	display: none
+}
+
+/* 清除浮动用 */
+.clearfix:after {
+	visibility: hidden;
+	clear: both;
+	display: block;
+	content: ".";
+	height: 0
+}
+
+.clearfix {
+	*zoom: 1
+}
+
+/* =====================================全局设置======================================== */
+:root {
+	--bg-color: #7952b3;
+}
+body {
+	background-color: #eee;
+	word-wrap:break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h2 a{
+	color: black;
+}
+
+.muted,
+.muted a {
+	color: #999;
+}
+
+/* =======================================首页设计=================================================== */
+.cat-div {
+	position: relative;
+}
+.cat-div a{
+	color: white;
+	background-color: var(--bg-color);
+}
+
+.cat-div i {
+	position: absolute;
+    top: 50%;
+    margin-top: -8px;
+    right: -2px;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: middle;
+    border-left: 8px solid var(--bg-color);
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+
+.post-edit-link {
+	color: #999; /* 编辑按钮 */
+}
+
+/* 文章列表分页导航栏 */
+.screen-reader-text {
+	display: none;
+}
+
+.posts-fenye {
+	padding: 15px;
+	width: 100%;
+	background-color: white;
+}
+
+.nav-links {
+	text-align: center;
+}
+
+.posts-fenye a:hover {
+	color: white;
+	background-color: #ff5c5c;
+}
+
+.page-numbers {
+	font-size: 1.2rem;
+	padding: 0 0.4rem;
+	border: 1px solid #ccc;
+	color: #595959;
+}
+
+.current {
+	background-color: #ff5c5c;
+	color: white;
+}
+
+.dots {
+	border: none;
+}
+
+
+
+
+/* =============================================菜单栏样式制作========================================= */
+/* 当鼠标经过菜单栏时,显示子菜单 */
+.dropdown:hover>.dropdown-menu {
+	display: block;
+}
+
+/* 屏幕宽度大于768时的样式,用于让电脑隐藏子菜单,手机不隐藏子菜单,请放于style.css中 */
+@media screen and (min-width: 768px) {
+.sub-menu>li>.sub-menu {
+	left: 100%;
+	top: 0;
+}
+}
+
+.nav-link {
+	color: rgba(255,255,255,0.85);
+}
+
+.current-menu-item>a{
+	color: white;
+}
+
+.bd-navbar {
+    /* padding: .75rem 0; */
+    background-color: var(--bg-color);
+}
+
+.bg-zise{
+    background-color: var(--bg-color);
+
+}
+
+.sub-menu {
+    background-color: var(--bg-color);
+}
+
+.sub-menu a {
+	color: white;
+
+}
+
+/* 
+* ==========================侧边栏样式设计================================= 
+*/
+.sidebar-widget {
+	background-color: white;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
+.sidebar-widget h2,
+.sidebar-widget h3
+{
+	background: var(--bg-color);
+    color: #fff;
+    border-color: var(--bg-color);
+
+	border-width: 0 0 2px 0;
+    border-style: solid;
+    /* margin: 0px -20px 20px -20px; */
+    font-size: 18px;
+    line-height: 40px;
+    font-weight: 600;
+    padding: 0 8px 0 15px;
+    position: relative;
+    width: auto;
+    min-height: 40px;
+    height: auto;
+    display: inline-block;
+}
+
+.sidebar-widget h2::before,
+.sidebar-widget h3::before
+{
+	width: 0;
+    position: absolute;
+    right: -30px;
+    top: 0px;
+    height: 0;
+    border-style: solid;
+    border-width: 42px 0 0px 30px;
+    content: "";
+
+	border-left-color: var(--bg-color);
+    border-color: transparent transparent transparent var(--bg-color);
+}
+
+.sidebar-widget ul{
+	border-top: 3px var(--bg-color) solid;
+}
+
+.sidebar-widget ul li {
+	padding: 10px;
+}
+
+.sidebar-img {
+	width: 120px;
+	height: 80px;
+}
+
+.wp-block-search__inside-wrapper {
+	padding: 10px;
+}
+.wp-block-search__button {
+	padding: 5px 15px;
+	background-color: var(--bg-color);
+	color: white;
+	border: none;
+}
+
+/* ========================================底部设计======================================= */
+.footer {
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+	background-color: black;
+	color: white;
+	margin-top: 10px;
+}
+
+/* 
+*========================post文章页设计==============================
+ */
+.post-author a{
+	color: #1151d3;
+}
+ .entry-info{
+	 font-size: 14px;
+ }
+
+ .pre-post a,
+ .next-post a
+ {
+	color: white;
+ }
+
+ .fenye a{
+	border: 1px solid #ccc;
+
+ }
+
+ .fenye a:hover {
+	color: white;
+	background-color: #ff5c5c;
+ }
+
+ .post-page-numbers {
+	/* font-size: 1.2rem;
+	padding: 0 0.4rem;
+	border: 1px solid #ccc;
+	color: #595959; */
+}
+
+/* 评论表单设计 */
+.comment-notes {
+	display: none;
+}
+
+.comment-reply-title,
+.comments-title{
+	border-left: 3px var(--bg-color) solid;
+	padding-left: 10px;
+}
+
+.submit,
+.submit:hover {
+	background-color:var(--bg-color) ;
+	color: white;
+}
+
+
+.comment_ol {
+	background-color: white;
+}
+
+.comment {
+	/* 文字换行 */
+	word-wrap: break-word;
+    word-break: normal;
+	padding: 10px;
+}
+
+.gravatar {
+	float: left;
+    margin-right: 15px;
+}
+
+.gravatar img {
+	border: 3px solid #fff;
+    box-shadow: 0 0 5px rgba(0,0,0,.15);
+    display: inline-block;
+    position: relative;
+    width: 3.125rem;
+}
+
+.comment_content {
+	background-color: white;
+	border-bottom: 1px solid #ccc;
+}
+
+.comment_text {
+	font-size: 1.2rem;
+	line-height: 2rem;
+}
+
+.comment_time {
+	color: #ccc;
+}
+
+/* 评论列表设计 */
+.comment-avatar {
+	width: 64px;
+	height: 64px;
+}
+
+.comment-left {
+	margin-right: 16px;
+}
+.comment-list .children {
+	margin: 10px 0 0 64px;
+}
+
+.comment-list .comment-meta {
+	opacity: 50%;
+}
+
+.comment-list .comment-text{
+	color: #222;
+	padding-top: 10px;
+}
+
+.comment-footer{
+	padding-top: 8px;
+	margin-bottom: 5px;
+}
+
+.comment-list>li {
+	margin: 15px 0;
+	padding: 8px;
+	border-bottom: 1px #eee solid;
+}
+.comment-list .url ,
+.comment-list .fn{
+	color: black;
+	font-weight: 600;
+}
+
+.comment-list .children {
+	background-color: rgb(250, 250, 250);
+}
+.comment-list .children li {
+	margin: 10px 0;
+}
