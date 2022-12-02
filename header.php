@@ -37,26 +37,29 @@
 				endif;
 				?>
 
+				<?php if (has_nav_menu('top')) : ?>
+					<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-				<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
+					<div class="offcanvas offcanvas-end bd-navbar" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
+						<div class="offcanvas-header pb-0">
+							<h5 class="offcanvas-title text-white" id="bdNavbarOffcanvasLabel">品牌名称</h5>
+							<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+						</div>
+						<?php
+						wp_nav_menu(array(
+							'theme_location'       => 'top',
+							'container'            => 'div',
+							'container_class'      => 'offcanvas-body pt-0',
+							// 'fallback_cb'          => 'wp_page_menu',
+							'items_wrap'           => '<ul class="navbar-nav flex-row flex-wrap">%3$s</ul>'
+						));
+						?>
 
-				<div class="offcanvas offcanvas-end bd-navbar" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
-					<div class="offcanvas-header pb-0">
-						<h5 class="offcanvas-title text-white" id="bdNavbarOffcanvasLabel">品牌名称</h5>
-						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
 					</div>
-					<?php
-					wp_nav_menu(array(
-						'theme_location'       => 'top',
-						'container'            => 'div',
-						'container_class'      => 'offcanvas-body pt-0',
-						'fallback_cb'          => 'wp_page_menu',
-						'items_wrap'           => '<ul class="navbar-nav flex-row flex-wrap">%3$s</ul>'
-					)); ?>
+				<?php endif; ?>
 
-				</div>
 			</nav>
 		</header>
 
