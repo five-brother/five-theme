@@ -218,7 +218,6 @@ h2 a{
 .sidebar-widget {
 	background-color: white;
 	margin-bottom: 10px;
-	padding: 10px;
 }
 
 .sidebar-widget h2,
@@ -279,6 +278,71 @@ h2 a{
 	background-color: var(--bg-color);
 	color: white;
 	border: none;
+}
+
+/* 搜索框样式 */
+.widget_search {
+	width: 100%;
+}
+
+.searchform>div {
+	position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+	padding: 10px;
+}
+
+.searchform #s {
+	position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+	display: block;
+    padding: .375rem .75rem;
+	margin: 0 15px 0 0 ;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: .375rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#s:focus {
+	outline: auto;
+	outline-color: var(--bg-color);
+}
+
+.searchform #searchsubmit {
+	display: flex;
+    align-items: center;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+    background-color: var(--bg-color);
+    border: 1px solid #ced4da;
+    border-radius: .375rem;
+}
+
+/* 日历样式 */
+.wp-calendar-table {
+	width: 100%;
+	text-align: center;
+}
+
+.calendar_wrap {
+	padding: 10px;
 }
 
 /* ========================================底部设计======================================= */
