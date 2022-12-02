@@ -11,6 +11,11 @@ if (version_compare($GLOBALS['wp_version'], '4.7-alpha', '<')) {
 
 include(get_template_directory() . '/functions/widget.php');//创建自定义组件
 
+//禁止块编辑器管理Gutenberg插件中的小部件。
+add_filter( 'gutenberg_use_widgets_block_editor', '__return_false' );
+//禁止块编辑器管理小部件。在后台小工具页面查看效果。
+add_filter( 'use_widgets_block_editor', '__return_false' );
+
 /* 添加主题在线升级功能 ----自定义主题下载地址 */
 /* require 'plugin-update-checker/plugin-update-checker.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
@@ -37,8 +42,8 @@ $myUpdateChecker->setBranch('main');
 //Optional: If you're using a private repository, specify the access token like this:
 $myUpdateChecker->setAuthentication('your-token-here');
 
-//去除钩子中系统自带的函数
-remove_action('wp_head', '_wp_render_title_tag', 1);
+//去除钩子中系统自带的函数,新手不要随便去除系统自带的功能。
+/* remove_action('wp_head', '_wp_render_title_tag', 1);
 // remove_action('wp_head', 'wp_enqueue_scripts', 1 );//脚本排队功能
 remove_action('wp_head', 'wp_resource_hints', 2);
 remove_action('wp_head', 'feed_links', 2);
@@ -65,7 +70,7 @@ remove_action('wp_enqueue_scripts', 'wp_localize_jquery_ui_datepicker', 1000);
 remove_action('admin_enqueue_scripts', 'wp_localize_jquery_ui_datepicker', 1000);
 remove_action('wp_enqueue_scripts', 'wp_common_block_scripts_and_styles');
 remove_action('admin_enqueue_scripts', 'wp_common_block_scripts_and_styles');
-remove_action('wp_print_styles', 'print_emoji_styles');
+remove_action('wp_print_styles', 'print_emoji_styles'); */
 
 // remove_action( 'wp_default_scripts', 'wp_default_scripts' );
 // remove_action( 'wp_default_scripts', 'wp_default_packages' );
