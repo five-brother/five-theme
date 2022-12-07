@@ -229,8 +229,7 @@ aside .sidebar-widget ol{
 }
 
 .sidebar-widget h2,
-.sidebar-widget h3,
-.sidebar-widget label
+.sidebar-widget h3
 {
 	background: var(--bg-color);
     color: #fff;
@@ -251,8 +250,7 @@ aside .sidebar-widget ol{
 }
 
 .sidebar-widget h2::before,
-.sidebar-widget h3::before,
-.sidebar-widget label::before
+.sidebar-widget h3::before
 {
 	width: 0;
     position: absolute;
@@ -289,6 +287,13 @@ aside .sidebar-widget ol{
 	background-color: var(--bg-color);
 	color: white;
 	border: none;
+}
+
+
+
+.post-date {
+	display: block;
+	color: #999;
 }
 
 /* 搜索框样式 */
