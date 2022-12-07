@@ -11,9 +11,8 @@ if (version_compare($GLOBALS['wp_version'], '4.7-alpha', '<')) {
 
 include(get_template_directory() . '/functions/widget.php');//创建自定义组件
 
-//禁止块编辑器管理Gutenberg插件中的小部件。
+//使用[经典小工具]管理小工具界面，在后台小工具页面查看效果。
 add_filter( 'gutenberg_use_widgets_block_editor', '__return_false' );
-//禁止块编辑器管理小部件。在后台小工具页面查看效果。
 add_filter( 'use_widgets_block_editor', '__return_false' );
 
 /* 添加主题在线升级功能 ----自定义主题下载地址 */
@@ -29,16 +28,13 @@ $myUpdateChecker = PucFactory::buildUpdateChecker(
 //添加主题在线升级功能----github升级方式
 require 'plugin-update-checker/plugin-update-checker.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
-
 $myUpdateChecker = PucFactory::buildUpdateChecker(
 	'https://github.com/five-brother/five-theme',
 	__FILE__,
 	'unique-plugin-or-theme-slug'
 );
-
 //Set the branch that contains the stable release.
 $myUpdateChecker->setBranch('main');
-
 //Optional: If you're using a private repository, specify the access token like this:
 $myUpdateChecker->setAuthentication('your-token-here');
 
@@ -84,8 +80,6 @@ remove_action('wp_print_styles', 'print_emoji_styles'); */
  */
 function wpdocs_scripts_method()
 {
-
-
     //引入bootstrap5
     wp_enqueue_style('bootstrap-css', 'https://cdn.staticfile.org/bootstrap/5.2.2/css/bootstrap.min.css');
     wp_enqueue_script('bootstrap-js', 'https://cdn.staticfile.org/bootstrap/5.2.2/js/bootstrap.min.js');
@@ -121,6 +115,7 @@ function my_custom_sidebar()
             'after_widget'   => "</div>\n",
             'before_title'   => '<h3 class="widget-title">',
             'after_title'    => "</h3>\n",
+            // 'show_in_rest'   => true,
         )
     );
 }
@@ -206,23 +201,16 @@ function add_submenu_ul_class($classes, $item, $args)
 // }
 
 
-
-
-
-
-
-
-
 //后台添加页面
 add_action('admin_menu', 'register_menu_page');
 function register_menu_page()
 {
-    add_menu_page('页面标题2', '菜单标题2', 'edit_theme_options', 'wudipage', 'menu_page_html', '', '1');
-    add_submenu_page('wudipage', '子页面1标题', '子菜单1标题', 'edit_theme_options', 'wudi-submenu-page1', 'submenu_page_html', '1');
-    add_submenu_page('wudipage', '子页面2标题', '子菜单2标题', 'edit_theme_options', 'wudi-submenu-page2', 'submenu_page_html', '1');
-    add_options_page('设置菜单子页面1', '设置菜单子菜单1', 'edit_theme_options', 'options_submenu_page', 'options_submenu_page_html');
-    add_pages_page('子菜单页面3', '子菜单标题3', 'administrator', 'zicaidan3', 'page_3');
-    add_management_page('测试子菜单页面3', '测试子菜单标题3', 'administrator', 'zicaidan4', 'page_3');
+    add_menu_page('主题选项', '五弟主题-选项', 'edit_theme_options', 'wudipage', 'menu_page_html');
+    // add_submenu_page('wudipage', '子页面1标题', '子菜单1标题', 'edit_theme_options', 'wudi-submenu-page1', 'submenu_page_html', '1');
+    // add_submenu_page('wudipage', '子页面2标题', '子菜单2标题', 'edit_theme_options', 'wudi-submenu-page2', 'submenu_page_html', '1');
+    // add_options_page('设置菜单子页面1', '设置菜单子菜单1', 'edit_theme_options', 'options_submenu_page', 'options_submenu_page_html');
+    // add_pages_page('子菜单页面3', '子菜单标题3', 'administrator', 'zicaidan3', 'page_3');
+    // add_management_page('测试子菜单页面3', '测试子菜单标题3', 'administrator', 'zicaidan4', 'page_3');
 }
 function menu_page_html()
 {
@@ -241,8 +229,8 @@ function page_3()
     echo 444444;
 }
 
-//后台顶部添加按钮
-add_action('admin_bar_menu', 'modify_admin_bar', 99);
+//后台顶部菜单添加按钮
+/* add_action('admin_bar_menu', 'modify_admin_bar', 99);
 function modify_admin_bar($wp_admin_bar)
 {
     $wp_admin_bar->add_menu(array(
@@ -250,7 +238,7 @@ function modify_admin_bar($wp_admin_bar)
         'title' => '自定义顶部菜单',
         'href' => 'http://www.wudi.com/wp-admin/admin.php?page=wudi-submenu-page2'
     ));
-}
+} */
 
 
 
@@ -273,7 +261,7 @@ function post_thumbnail_src()
         $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
         @$post_thumbnail_src = $matches[1][0]; //获取该图片 src
         if (empty($post_thumbnail_src)) {
-            $post_thumbnail_src = get_bloginfo('template_url') . "/images/no-image.jpg"; //如果日志中没有图片，则显示默认图片
+            $post_thumbnail_src = get_bloginfo('template_url') . "/images/default.jpg"; //如果日志中没有图片，则显示默认图片
         }
     };
     echo $post_thumbnail_src;
@@ -342,7 +330,7 @@ function bigfa_like()
     die;
 }
 
-// 使用国内头像源
+/* 使用国内头像源 */
 if (!function_exists('get_cravatar_url')) {
     /**
      * 替换 Gravatar 头像为 Cravatar 头像
@@ -367,9 +355,8 @@ if (!function_exists('get_cravatar_url')) {
     add_filter('get_avatar_url', 'get_cravatar_url', 1);
 }
 if (!function_exists('set_defaults_for_cravatar')) {
-    /**
-     * 替换 WordPress 讨论设置中的默认头像
-     */
+     //替换 WordPress 讨论设置中的默认头像
+
     function set_defaults_for_cravatar($avatar_defaults)
     {
         $avatar_defaults['gravatar_default'] = 'Cravatar 标志';
@@ -378,9 +365,9 @@ if (!function_exists('set_defaults_for_cravatar')) {
     add_filter('avatar_defaults', 'set_defaults_for_cravatar', 1);
 }
 if (!function_exists('set_user_profile_picture_for_cravatar')) {
-    /**
-     * 替换个人资料卡中的头像上传地址
-     */
+
+     //替换个人资料卡中的头像上传地址
+
     function set_user_profile_picture_for_cravatar()
     {
         return '<a href="https://cravatar.cn" target="_blank">您可以在 Cravatar 修改您的资料图片</a>';
@@ -388,7 +375,7 @@ if (!function_exists('set_user_profile_picture_for_cravatar')) {
     add_filter('user_profile_picture_description', 'set_user_profile_picture_for_cravatar', 1);
 }
 
-// 自定义评论列表样式
+/* 自定义评论列表样式 */
 function custom_comment($comment, $args, $depth)
 {
 
@@ -499,10 +486,8 @@ function custom_comment($comment, $args, $depth)
             </div>
         <?php
     }
-        ?>
 
-<?php
-// 评论ajax加载功能
+/* 评论ajax加载功能 */
 add_action('wp_ajax_cloadmore', 'comments_loadmore_handler'); // wp_ajax_{action}
 add_action('wp_ajax_nopriv_cloadmore', 'comments_loadmore_handler'); // wp_ajax_nopriv_{action}
 
@@ -522,4 +507,8 @@ function comments_loadmore_handler()
     ));
     die;
 }
-?>
+
+/* 禁用块编辑器，使用经典编辑器 - v1.0.3新增 */
+add_filter( 'use_block_editor_for_post', '__return_false');
+
+

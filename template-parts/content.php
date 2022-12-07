@@ -28,7 +28,7 @@ if (!empty($categories)) :
                 </div><!-- row-cols-auto end -->
 
 
-                <div class="py-2">
+                <div class="py-2 entry-excerpt">
                     <?php the_excerpt(); ?>
                 </div>
             </div>

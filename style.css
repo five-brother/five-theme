@@ -5,7 +5,7 @@
     Author: 五弟
 	Author URI: http://www.555d.cn/theme-info
 	details URI: http://www.555d.cn/theme-info
-	Version: 1.0.2
+	Version: 1.0.3
 	License: 许可证
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	Tags: 五弟
@@ -41,7 +41,7 @@ button {
 }
 
 a {
-	color: #666;
+	color: #333;
 	text-decoration: none
 }
 
@@ -95,9 +95,12 @@ h1,
 h2,
 h3,
 h4,
-h5,
-h2 a{
-	color: black;
+h5{
+	padding: 10px 0;
+}
+
+p {
+	line-height: 2rem;
 }
 
 .muted,
@@ -220,8 +223,14 @@ h2 a{
 	margin-bottom: 10px;
 }
 
+aside .sidebar-widget ul,
+aside .sidebar-widget ol{
+	padding: 15px 10px 5px ;
+}
+
 .sidebar-widget h2,
-.sidebar-widget h3
+.sidebar-widget h3,
+.sidebar-widget label
 {
 	background: var(--bg-color);
     color: #fff;
@@ -242,7 +251,8 @@ h2 a{
 }
 
 .sidebar-widget h2::before,
-.sidebar-widget h3::before
+.sidebar-widget h3::before,
+.sidebar-widget label::before
 {
 	width: 0;
     position: absolute;
@@ -273,6 +283,7 @@ h2 a{
 .wp-block-search__inside-wrapper {
 	padding: 10px;
 }
+
 .wp-block-search__button {
 	padding: 5px 15px;
 	background-color: var(--bg-color);
@@ -356,8 +367,12 @@ h2 a{
 }
 
 /* 
-*========================post文章页设计==============================
+*========================post文章详情页设计==============================
  */
+ .entry p {
+	padding: 5px 0;
+}
+
 .post-author a{
 	color: #1151d3;
 }

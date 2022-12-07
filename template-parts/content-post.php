@@ -45,7 +45,7 @@
 
                 </div>
 
-                <div>
+                <div class="entry-content">
                     <?php the_content(); ?>
                 </div>
             </div>
