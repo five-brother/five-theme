@@ -9,11 +9,11 @@ if (version_compare($GLOBALS['wp_version'], '4.7-alpha', '<')) {
     return;
 }
 
-include(get_template_directory() . '/functions/widget.php');//创建自定义组件
+include(get_template_directory() . '/functions/widget.php'); //创建自定义组件
 
 //使用[经典小工具]管理小工具界面，在后台小工具页面查看效果。
-add_filter( 'gutenberg_use_widgets_block_editor', '__return_false' );
-add_filter( 'use_widgets_block_editor', '__return_false' );
+add_filter('gutenberg_use_widgets_block_editor', '__return_false');
+add_filter('use_widgets_block_editor', '__return_false');
 
 /* 添加主题在线升级功能 ----自定义主题下载地址 */
 /* require 'plugin-update-checker/plugin-update-checker.php';
@@ -27,11 +27,13 @@ $myUpdateChecker = PucFactory::buildUpdateChecker(
 
 //添加主题在线升级功能----github升级方式
 require 'plugin-update-checker/plugin-update-checker.php';
+
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
 $myUpdateChecker = PucFactory::buildUpdateChecker(
-	'https://github.com/five-brother/five-theme',
-	__FILE__,
-	'unique-plugin-or-theme-slug'
+    'https://github.com/five-brother/five-theme',
+    __FILE__,
+    'unique-plugin-or-theme-slug'
 );
 //Set the branch that contains the stable release.
 $myUpdateChecker->setBranch('main');
@@ -129,11 +131,29 @@ function my_customize_register($wp_customize)
 {
     $wp_customize->add_setting('setting_id');
     $wp_customize->add_control('setting_id', array(
-        'type' => 'text', //'text''checkbox''textarea''radio''select''dropdown-pages''email''url''number''hidden''date''text'
+        'type' => 'text', //'text''checkbox''textarea''radio''select''dropdown-pages''email''url''number''hidden''date'
         'section' => 'colors',
         'label' => '我自定义的颜色',
         'description' => '我自定义的描述'
     ));
+
+
+    $wp_customize->add_setting('default_thumbnail');
+    $media_control = new WP_Customize_Media_Control(
+        $wp_customize,
+        'default_thumbnail', #setting/option_id
+        [
+            'mime_type' => 'image',
+            'section' => 'colors',
+            'label' => __('Label for control', 'domain'),
+            'description' => __('Description for control', 'domain')
+        ]
+    );
+    $wp_customize->add_control($media_control);
+
+
+
+
 
     $wp_customize->add_setting('color_control');
     $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'color_control', array(
@@ -200,8 +220,31 @@ function add_submenu_ul_class($classes, $item, $args)
 //      return $classes;
 // }
 
+/* 制作五弟主题选项的具体样式和功能 */
+add_action('admin_init', 'fivebro_admin_init');
+function fivebro_admin_init()
+{
+    //注册设置项
+    register_setting('fivebro-setting-group', 'fivebro-settings'); //以数组形式保存数据到数据库
+    //添加一个组件到mypage页面
+    add_settings_section('section-footer', '底部区域设置', 'section_footer_callback', 'mypage');
+    //添加一个字段到mypage页面的section-footer组件中
+    add_settings_field('field-beian', '填写备案号', 'field_beian_callback', 'mypage', 'section-footer');
+}
+//section-footer组件显示的内容,显示在mypage页面中
+function section_footer_callback()
+{
+}
+//field-beian字段显示的内容,显示在mypage页面中
+function field_beian_callback()
+{
+    $settings = get_option('fivebro-settings');
+    $beian = isset($settings['beian']) ? esc_attr($settings['beian']) : "";
+    echo "<input type='text' name='fivebro-settings[beian]' value='$beian'>";
+}
 
-//后台添加页面
+
+/* 后台添加页面 */
 add_action('admin_menu', 'register_menu_page');
 function register_menu_page()
 {
@@ -212,9 +255,16 @@ function register_menu_page()
     // add_pages_page('子菜单页面3', '子菜单标题3', 'administrator', 'zicaidan3', 'page_3');
     // add_management_page('测试子菜单页面3', '测试子菜单标题3', 'administrator', 'zicaidan4', 'page_3');
 }
+//设计五弟主题选项页面的样式
 function menu_page_html()
 {
-    echo 11111111111;
+    echo '<form action="options.php" method="POST">';
+    settings_fields('fivebro-setting-group');
+    // 展示mypage页面
+    do_settings_sections('mypage');
+    //提交按钮
+    submit_button();
+    echo '</form>';
 }
 function submenu_page_html()
 {
@@ -355,7 +405,7 @@ if (!function_exists('get_cravatar_url')) {
     add_filter('get_avatar_url', 'get_cravatar_url', 1);
 }
 if (!function_exists('set_defaults_for_cravatar')) {
-     //替换 WordPress 讨论设置中的默认头像
+    //替换 WordPress 讨论设置中的默认头像
 
     function set_defaults_for_cravatar($avatar_defaults)
     {
@@ -366,7 +416,7 @@ if (!function_exists('set_defaults_for_cravatar')) {
 }
 if (!function_exists('set_user_profile_picture_for_cravatar')) {
 
-     //替换个人资料卡中的头像上传地址
+    //替换个人资料卡中的头像上传地址
 
     function set_user_profile_picture_for_cravatar()
     {
@@ -487,28 +537,26 @@ function custom_comment($comment, $args, $depth)
         <?php
     }
 
-/* 评论ajax加载功能 */
-add_action('wp_ajax_cloadmore', 'comments_loadmore_handler'); // wp_ajax_{action}
-add_action('wp_ajax_nopriv_cloadmore', 'comments_loadmore_handler'); // wp_ajax_nopriv_{action}
+    /* 评论ajax加载功能 */
+    add_action('wp_ajax_cloadmore', 'comments_loadmore_handler'); // wp_ajax_{action}
+    add_action('wp_ajax_nopriv_cloadmore', 'comments_loadmore_handler'); // wp_ajax_nopriv_{action}
 
-function comments_loadmore_handler()
-{
-    global $post;
-    $post = get_post($_POST['post_id']);
-    setup_postdata($post);
+    function comments_loadmore_handler()
+    {
+        global $post;
+        $post = get_post($_POST['post_id']);
+        setup_postdata($post);
 
-    wp_list_comments(array(
-        'callback' => 'custom_comment',
-        'per_page' => get_option('comments_per_page'),
-        'avatar_size' => 64,
-        'page' => $_POST['cpage'],
-        'style' => 'ul',
-        'short_ping' => true,
-    ));
-    die;
-}
+        wp_list_comments(array(
+            'callback' => 'custom_comment',
+            'per_page' => get_option('comments_per_page'),
+            'avatar_size' => 64,
+            'page' => $_POST['cpage'],
+            'style' => 'ul',
+            'short_ping' => true,
+        ));
+        die;
+    }
 
-/* 禁用块编辑器，使用经典编辑器 - v1.0.3新增 */
-add_filter( 'use_block_editor_for_post', '__return_false');
-
-
+    /* 禁用块编辑器，使用经典编辑器 - v1.0.3新增 */
+    add_filter('use_block_editor_for_post', '__return_false');

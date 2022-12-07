@@ -5,7 +5,7 @@
     Author: 五弟
 	Author URI: http://www.555d.cn/theme-info
 	details URI: http://www.555d.cn/theme-info
-	Version: 1.0.3
+	Version: 1.0.4
 	License: 许可证
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	Tags: 五弟
@@ -367,8 +367,12 @@ aside .sidebar-widget ol{
 	line-height: 100px;
 	text-align: center;
 	background-color: black;
-	color: white;
-	margin-top: 10px;
+	color: #ccc;
+	margin-top: 15px;
+}
+
+.footer a {
+	color: #ccc;
 }
 
 /* 
