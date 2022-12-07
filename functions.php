@@ -261,7 +261,7 @@ function post_thumbnail_src()
         $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
         @$post_thumbnail_src = $matches[1][0]; //获取该图片 src
         if (empty($post_thumbnail_src)) {
-            $post_thumbnail_src = get_bloginfo('template_url') . "/images/default.jpg"; //如果日志中没有图片，则显示默认图片
+            $post_thumbnail_src = get_bloginfo('template_url') . "/assets/img/default.jpg"; //如果日志中没有图片，则显示默认图片
         }
     };
     echo $post_thumbnail_src;
