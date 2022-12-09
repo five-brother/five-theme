@@ -1,4 +1,5 @@
-//文章点赞
+jQuery(function ($) {
+    //文章点赞
 $.fn.postLike = function () {
     if ($(this).hasClass('done')) {
         return false;
@@ -22,8 +23,8 @@ $(document).on("click", ".favorite", function () {
     $(this).postLike();
 });
 
+
 // 加载评论
-jQuery(function ($) {
     //加载更多按钮点击事件 
     $('.comment_loadmore').click(function () {
         var button = $(this);
