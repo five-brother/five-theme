@@ -204,10 +204,14 @@ function post_thumbnail_src()
         $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
         @$post_thumbnail_src = $matches[1][0]; //获取该图片 src
         if (empty($post_thumbnail_src)) {
-            $random = mt_rand(1, 6);
-            $post_thumbnail_src = get_bloginfo('template_url') . "/assets/img/" . $random . ".jpg"; //如果日志中没有图片，则显示随机图片
+                           $random = mt_rand(1, 6);
+                //判断子主题的文件目录是否存在，不存在则使用原主题的图片目录
+                $child_dir = get_theme_file_uri('assets/img/');
+                $parent_dir = get_template_directory_uri() . "/assets/img/";
+                $img_dir = is_dir(get_theme_file_path('assets/img')) ? $child_dir : $parent_dir;
 
-            // $post_thumbnail_src = get_bloginfo('template_url') . "/assets/img/default.jpg"; //如果日志中没有图片，则显示默认图片
+                $post_thumbnail_src = $img_dir . $random . ".jpg"; //如果日志中没有图片，则显示随机图片
+                // $post_thumbnail_src = get_bloginfo('template_url') . "/assets/img/default.jpg"; //如果日志中没有图片，则显示默认图片
         }
     };
     echo $post_thumbnail_src;
