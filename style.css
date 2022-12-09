@@ -363,8 +363,6 @@ aside .sidebar-widget ol{
 
 /* ========================================底部设计======================================= */
 .footer {
-	height: 100px;
-	line-height: 100px;
 	text-align: center;
 	background-color: black;
 	color: #ccc;
