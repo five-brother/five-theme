@@ -187,10 +187,6 @@ function add_submenu_ul_class($classes, $item, $args)
 // }
 
 
-
-
-
-
 //输出缩略图地址
 function post_thumbnail_src()
 {
@@ -208,7 +204,10 @@ function post_thumbnail_src()
         $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
         @$post_thumbnail_src = $matches[1][0]; //获取该图片 src
         if (empty($post_thumbnail_src)) {
-            $post_thumbnail_src = get_bloginfo('template_url') . "/assets/img/default.jpg"; //如果日志中没有图片，则显示默认图片
+            $random = mt_rand(1, 6);
+            $post_thumbnail_src = get_bloginfo('template_url') . "/assets/img/" . $random . ".jpg"; //如果日志中没有图片，则显示随机图片
+
+            // $post_thumbnail_src = get_bloginfo('template_url') . "/assets/img/default.jpg"; //如果日志中没有图片，则显示默认图片
         }
     };
     echo $post_thumbnail_src;

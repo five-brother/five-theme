@@ -4,7 +4,6 @@ get_header();
 ?>
 
 <main class="col-md-8 site-main bg-white">
-
 	<?php
 	while (have_posts()) {
 		the_post();
@@ -12,7 +11,8 @@ get_header();
 		<article class='border-bottom py-3'>
 			<div class='row'>
 				<div class="col-5 col-lg-3">
-					<img class="img-thumbnail" src="<?php post_thumbnail_src();  ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>" />
+				<img src="<?php bloginfo('template_url');?>/timthumb.php?src=<?php echo post_thumbnail_src(); ?>&h=160&w=260&zc=1" alt="<?php the_title(); ?>" class="img-thumbnail"/>
+
 				</div>
 
 				<!-- 所有行 -->
