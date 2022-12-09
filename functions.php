@@ -94,7 +94,7 @@ function wpdocs_scripts_method()
     //引入百度jQuery
     wp_enqueue_script('jquery-js', 'https://libs.baidu.com/jquery/2.1.4/jquery.min.js');
     //引入main.js文件
-    wp_enqueue_script('main-script', get_stylesheet_directory_uri() . '/assets/js/main.js', array('jquery-js'));
+    wp_enqueue_script('main-script', get_template_directory_uri() . '/assets/js/main.js', array('jquery-js'));
 }
 add_action('wp_enqueue_scripts', 'wpdocs_scripts_method');
 
