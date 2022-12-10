@@ -9,8 +9,70 @@ if (version_compare($GLOBALS['wp_version'], '4.7-alpha', '<')) {
     return;
 }
 
-require(get_template_directory() . '/functions/widget.php'); //创建自定义组件
-require(get_template_directory() . '/functions/theme-options.php'); //创建自定义组件
+/* 为主题添加一些功能 */
+function fivebro_setup()
+{
+    /*
+    *让WordPress管理文档标题。
+    *通过添加主题支持，我们声明这个主题不使用
+    *硬编码<title>标签在文档头，并期望WordPress
+    *为我们提供它。
+	 */
+    add_theme_support('title-tag');
+
+    /*
+	 * 启用块的自定义行高度
+	 */
+    add_theme_support('custom-line-height');
+
+    /*
+	 * 启用在帖子和页面上发布缩略图的支持。
+	 */
+    add_theme_support('post-thumbnails');
+
+    /*
+	 * 启用Post格式支持。
+	 *
+	 */
+    add_theme_support(
+        'post-formats',
+        array(
+            'aside',
+            'image',
+            'video',
+            'quote',
+            'link',
+            'gallery',
+            'audio',
+        )
+    );
+
+    // 添加自定义Logo的主题支持。
+    add_theme_support(
+        'custom-logo',
+        array(
+            'width'      => 250,
+            'height'     => 250,
+            'flex-width' => true,
+        )
+    );
+
+    //为小部件添加选择性刷新的主题支持。
+    add_theme_support('customize-selective-refresh-widgets');
+
+
+    //将常规编辑器样式加载到新的基于块的编辑器中。
+    add_theme_support('editor-styles');
+
+    //加载默认的块样式。
+    add_theme_support('wp-block-styles');
+}
+add_action('after_setup_theme', 'fivebro_setup');
+
+//创建自定义组件
+require(get_template_directory() . '/functions/widget.php');
+//创建主题的设置页面 
+require(get_template_directory() . '/functions/theme-options.php'); 
 
 
 //使用[经典小工具]管理小工具界面，在后台小工具页面查看效果。
@@ -188,23 +250,24 @@ function add_submenu_ul_class($classes, $item, $args)
 
 
 //输出缩略图地址
-function post_thumbnail_src()
-{
-    global $post;
-    if ($values = get_post_custom_values("thumbnail")) { //输出自定义域图片地址
-        $values = get_post_custom_values("thumbnail");
-        $post_thumbnail_src = $values[0];
-    } elseif (has_post_thumbnail()) { //如果有特色缩略图，则输出缩略图地址
-        $thumbnail_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
-        $post_thumbnail_src = $thumbnail_src[0];
-    } else {
-        $post_thumbnail_src = '';
-        ob_start();
-        ob_end_clean();
-        $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
-        @$post_thumbnail_src = $matches[1][0]; //获取该图片 src
-        if (empty($post_thumbnail_src)) {
-                           $random = mt_rand(1, 6);
+if (!function_exists('post_thumbnail_src')) {
+    function post_thumbnail_src()
+    {
+        global $post;
+        if ($values = get_post_custom_values("thumbnail")) { //输出自定义域图片地址
+            $values = get_post_custom_values("thumbnail");
+            $post_thumbnail_src = $values[0];
+        } elseif (has_post_thumbnail()) { //如果有特色缩略图，则输出缩略图地址
+            $thumbnail_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
+            $post_thumbnail_src = $thumbnail_src[0];
+        } else {
+            $post_thumbnail_src = '';
+            ob_start();
+            ob_end_clean();
+            $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+            @$post_thumbnail_src = $matches[1][0]; //获取该图片 src
+            if (empty($post_thumbnail_src)) {
+                $random = mt_rand(1, 6);
                 //判断子主题的文件目录是否存在，不存在则使用原主题的图片目录
                 $child_dir = get_theme_file_uri('assets/img/');
                 $parent_dir = get_template_directory_uri() . "/assets/img/";
@@ -212,26 +275,31 @@ function post_thumbnail_src()
 
                 $post_thumbnail_src = $img_dir . $random . ".jpg"; //如果日志中没有图片，则显示随机图片
                 // $post_thumbnail_src = get_bloginfo('template_url') . "/assets/img/default.jpg"; //如果日志中没有图片，则显示默认图片
-        }
-    };
-    echo $post_thumbnail_src;
+            }
+        };
+        echo $post_thumbnail_src;
+    }
 }
+
 
 // 获取文章的阅读次数
-function get_post_views($post_id)
-{
+if (!function_exists('get_post_views')) {
+    function get_post_views($post_id)
+    {
 
-    $count_key = 'views';
-    $count = get_post_meta($post_id, $count_key, true);
+        $count_key = 'views';
+        $count = get_post_meta($post_id, $count_key, true);
 
-    if ($count == '') {
-        delete_post_meta($post_id, $count_key);
-        add_post_meta($post_id, $count_key, '0');
-        $count = '0';
+        if ($count == '') {
+            delete_post_meta($post_id, $count_key);
+            add_post_meta($post_id, $count_key, '0');
+            $count = '0';
+        }
+
+        echo number_format_i18n($count);
     }
-
-    echo number_format_i18n($count);
 }
+
 // 设置更新文章的阅读次数
 function set_post_views()
 {
@@ -460,5 +528,3 @@ function custom_comment($comment, $args, $depth)
 
     /* 禁用块编辑器，使用经典编辑器 - v1.0.3新增 */
     add_filter('use_block_editor_for_post', '__return_false');
-
-
