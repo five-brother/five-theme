@@ -72,12 +72,14 @@ add_action('after_setup_theme', 'fivebro_setup');
 //创建自定义组件
 require(get_template_directory() . '/functions/widget.php');
 //创建主题的设置页面 
-require(get_template_directory() . '/functions/theme-options.php'); 
+require(get_template_directory() . '/functions/theme-options.php');
 
 
 //使用[经典小工具]管理小工具界面，在后台小工具页面查看效果。
 add_filter('gutenberg_use_widgets_block_editor', '__return_false');
 add_filter('use_widgets_block_editor', '__return_false');
+/* 禁用块编辑器，使用经典编辑器 - v1.0.3新增 */
+add_filter('use_block_editor_for_post', '__return_false');
 
 /* 添加主题在线升级功能 ----自定义主题下载地址 */
 /* require 'plugin-update-checker/plugin-update-checker.php';
@@ -525,6 +527,3 @@ function custom_comment($comment, $args, $depth)
         ));
         die;
     }
-
-    /* 禁用块编辑器，使用经典编辑器 - v1.0.3新增 */
-    add_filter('use_block_editor_for_post', '__return_false');
