@@ -16,19 +16,16 @@
 <body <?php body_class(); ?>>
 	<?php wp_body_open(); ?>
 	<div id="page" class="site">
-		<!-- 头部logo -->
-		<div class="bg-zise">
-			<div class="container">
-				<?php
-				// the_custom_logo(); 
-				?>
-			</div>
-		</div>
+
 
 		<header class="navbar navbar-expand-md navbar-dark bd-navbar">
 			<nav class="container-xxl flex-wrap flex-md-nowrap">
-
 				<?php
+				// 头部logo 
+				the_custom_logo();
+				?>
+				<?php
+
 				if (is_front_page() && is_home()) :
 				?>
 					<h1 class="site-title navbar-brand"><a class="text-white" href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a></h1>

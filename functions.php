@@ -18,12 +18,12 @@ function fivebro_setup()
     *硬编码<title>标签在文档头，并期望WordPress
     *为我们提供它。
 	 */
-    add_theme_support('title-tag');
+    // add_theme_support('title-tag');
 
     /*
 	 * 启用块的自定义行高度
 	 */
-    add_theme_support('custom-line-height');
+    // add_theme_support('custom-line-height');
 
     /*
 	 * 启用在帖子和页面上发布缩略图的支持。
@@ -51,8 +51,8 @@ function fivebro_setup()
     add_theme_support(
         'custom-logo',
         array(
-            'width'      => 250,
-            'height'     => 250,
+            'width'      => 120,
+            'height'     => 60,
             'flex-width' => true,
         )
     );
