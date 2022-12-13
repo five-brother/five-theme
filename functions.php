@@ -191,7 +191,32 @@ add_action('widgets_init', 'my_custom_sidebar');
 
 
 
+/**
+ * 将摘要的"[...]" 替换为 “阅读更多”
+ *
+ */
+function replace_excerpt_more( $link ) {
+	if ( is_admin() ) {
+		return $link;
+	}
 
+	$link = sprintf(
+		'<p class="link-more"><a href="%1$s" class="more-link ">%2$s</a></p>',
+		esc_url( get_permalink( get_the_ID() ) ),
+		'阅读更多'
+	);
+	return ' &hellip; ' . $link;
+}
+add_filter( 'excerpt_more', 'replace_excerpt_more' );
+
+/**
+ * 修改摘要的默认长度
+ */
+function custom_excerpt_length() {
+    return get_theme_mod('custom_excerpt_length',10);
+    // return 200;
+}
+add_filter( 'excerpt_length', 'custom_excerpt_length' );
 
 // 给菜单栏的li标签添加class
 function addli_menu_classes($classes, $item, $args)

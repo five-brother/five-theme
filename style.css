@@ -5,7 +5,7 @@
     Author: 五弟
 	Author URI: http://www.555d.cn/theme-info
 	details URI: http://www.555d.cn/theme-info
-	Version: 1.0.8
+	Version: 1.0.9
 	License: 许可证
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	Tags: 五弟
@@ -171,7 +171,9 @@ p {
 	border: none;
 }
 
-
+.more-link {
+	color: rgb(64, 64, 252);
+}
 
 
 /* =============================================菜单栏样式制作========================================= */
