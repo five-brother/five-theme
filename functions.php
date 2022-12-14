@@ -29,6 +29,8 @@ function fivebro_setup()
 	 * 启用在帖子和页面上发布缩略图的支持。
 	 */
     add_theme_support('post-thumbnails');
+//允许自定义网站背景颜色
+add_theme_support('custom-background');
 
     /*
 	 * 启用Post格式支持。
