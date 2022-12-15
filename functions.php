@@ -88,17 +88,17 @@ add_filter('use_widgets_block_editor', '__return_false');
 add_filter('use_block_editor_for_post', '__return_false');
 
 /* 添加主题在线升级功能 ----自定义主题下载地址 */
-/* require 'plugin-update-checker/plugin-update-checker.php';
+require 'plugin-update-checker/plugin-update-checker.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 $myUpdateChecker = PucFactory::buildUpdateChecker(
-	'http://wudi.com/theme.json',//将这里的网址改成你的theme.json所在地的网址
+	'https://www.555d.cn/theme.json',//将这里的网址改成你的theme.json所在地的网址
 	__FILE__, //Full path to the main plugin file or functions.php.
 	'unique-plugin-or-theme-slug'
-); */
+);
 
 //添加主题在线升级功能----github升级方式
-require 'plugin-update-checker/plugin-update-checker.php';
+/* require 'plugin-update-checker/plugin-update-checker.php';
 
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
@@ -110,7 +110,7 @@ $myUpdateChecker = PucFactory::buildUpdateChecker(
 //Set the branch that contains the stable release.
 $myUpdateChecker->setBranch('main');
 //Optional: If you're using a private repository, specify the access token like this:
-$myUpdateChecker->setAuthentication('your-token-here');
+$myUpdateChecker->setAuthentication('your-token-here'); */
 
 //去除钩子中系统自带的函数,新手不要随便去除系统自带的功能。
 /* remove_action('wp_head', '_wp_render_title_tag', 1);
