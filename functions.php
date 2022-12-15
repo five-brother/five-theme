@@ -71,10 +71,14 @@ add_theme_support('custom-background');
 }
 add_action('after_setup_theme', 'fivebro_setup');
 
+// 加载 Kirki
+include( get_template_directory() . '/functions/kirki/kirki.php' );
 //创建自定义组件
 require(get_template_directory() . '/functions/widget.php');
 //创建主题的设置页面 
 require(get_template_directory() . '/functions/theme-options.php');
+//导入主题的定制器
+require(get_template_directory() . '/functions/theme-customizer.php');
 
 
 //使用[经典小工具]管理小工具界面，在后台小工具页面查看效果。
