@@ -18,6 +18,14 @@ class ComposerStaticInitc56aa391ac498061f8d648878e0e6144
             'Kirki\\Compatibility\\' => 20,
             'Kirki\\' => 6,
         ),
+        'D' => 
+        array (
+            'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 55,
+        ),
+        'C' => 
+        array (
+            'Composer\\Installers\\' => 20,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -115,6 +123,14 @@ class ComposerStaticInitc56aa391ac498061f8d648878e0e6144
             3 => __DIR__ . '/..' . '/kirki-framework/module-panels/src',
             4 => __DIR__ . '/..' . '/kirki-framework/module-sections/src',
             5 => __DIR__ . '/..' . '/kirki-framework/url-getter/src',
+        ),
+        'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dealerdirect/phpcodesniffer-composer-installer/src',
+        ),
+        'Composer\\Installers\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
         ),
     );
 
