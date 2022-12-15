@@ -275,5 +275,5 @@ $wp_customize->add_setting('setting_id');
     $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'color_control', array(
         'label' => '全局背景颜色自定义',
         'section' => 'colors',
-    ))); */
-}
+    ))); 
+}*/
