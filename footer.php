@@ -27,6 +27,7 @@
 </div><!-- .wrap -->
 
 <?php wp_footer(); ?>
+<!-- 数据库<?php echo get_num_queries(); ?>次查询 | 用时：<?php timer_stop(1, 7) ?>秒 | 消耗了：<?php echo memory_get_peak_usage() / 1024 / 1024; ?>MB 内存-->
 </body>
 
 </html>
